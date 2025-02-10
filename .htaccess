@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# Define a pasta pública como o diretório raiz
+RewriteBase / 
+
+# Redireciona todas as requisições para index.php, exceto arquivos e diretórios existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+# Habilita CORS (Cross-Origin Resource Sharing) caso a API precise ser acessada de outro domínio
+Header Set Access-Control-Allow-Origin "*"
+Header Set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header Set Access-Control-Allow-Headers "Authorization, Content-Type"
+
+# Esconde o .htaccess do acesso público
+<Files ".htaccess">
+    Order Allow,Deny
+    Deny from all
+</Files>
